@@ -1,82 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aditi Nanera's Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aditi Nanera | Architecture Portfolio</title>
+  <meta
+    name="description"
+    content="Portfolio website of Aditi Nanera, an architecture student skilled in design, drafting, 3D modeling, and presentation development."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="menu-icon" id="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#performance">Academic Performance</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#interests">Interests</a></li>
-                <li><a href="#languages">Languages</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
+  <div class="bg-grid"></div>
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+
+  <header class="header" id="home">
+    <nav class="navbar container">
+      <a href="#home" class="logo">Aditi<span>.</span></a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#academics" class="nav-link">Academics</a></li>
+        <li><a href="#education" class="nav-link">Education</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#interests" class="nav-link">Interests</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
     </nav>
+  </header>
 
-    <section id="home" class="hero">
-        <h1>Aditi Nanera</h1>
-        <p>Architecture Assistant / Architecture Student</p>
-        <a href="#contact" class="cta-button">Contact Me</a>
-    </section>
+  <main>
+    <!-- HERO -->
+    <section class="hero section">
+      <div class="container hero-grid">
+        <div class="hero-text reveal">
+          <p class="eyebrow">Architecture Student • Creative Thinker</p>
+          <h1>
+            Aditi Nanera
+          </h1>
+          <h2 id="typingText" class="hero-subtitle">
+            Designing thoughtful spaces with creativity and precision.
+          </h2>
+          <p class="hero-description">
+            I am a motivated architecture student with a strong foundation in drafting,
+            3D modeling, presentation development, and design thinking. I enjoy creating
+            visually balanced, functional, and meaningful architectural work.
+          </p>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p>Motivated and detail-oriented Architecture Assistant with a strong foundation in design, drafting, and project documentation. Skilled in preparing drawings, 3D models, and presentation boards with proficiency in AutoCAD, SketchUp, and other design tools. Also done professional drawing classes from PRECEPT (Gulbai Tekre). Knowledgeable in building materials and sustainable design principles. Strong communication and teamwork skills with a keen eye for aesthetics and functionality.</p>
-    </section>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn btn-primary">Contact Me</a>
+            <a href="#skills" class="btn btn-secondary">View Skills</a>
+            <a href="#" class="btn btn-outline">Download Resume</a>
+          </div>
 
-    <section id="performance">
-        <h2>Academic Performance</h2>
-        <p>CGPA: 8.5 (4th semester)</p>
-    </section>
-
-    <section id="education">
-        <h2>Education</h2>
-        <p>Diploma in Architecture from Government Polytechnic for Girls (2023-2026)</p>
-        <p>Kameshwar Vidhyavihar Secondary Education (2022-2023)</p>
-    </section>
-
-    <section id="skills">
-        <h2>Skills</h2>
-        <div class="skills-container">
-            <div class="skill-card">AutoCAD</div>
-            <div class="skill-card">SketchUp</div>
-            <div class="skill-card">Canva</div>
+          <div class="hero-stats">
+            <div class="stat-card">
+              <h3>8.5</h3>
+              <p>CGPA in 4th Semester</p>
+            </div>
+            <div class="stat-card">
+              <h3>2023–2026</h3>
+              <p>Diploma in Architecture</p>
+            </div>
+            <div class="stat-card">
+              <h3>3+</h3>
+              <p>Core Design Tools</p>
+            </div>
+          </div>
         </div>
+
+        <div class="hero-image reveal">
+          <div class="image-wrapper">
+            <!-- Replace with actual image -->
+            <img src="assets/profile.jpg" alt="Portrait of Aditi Nanera" />
+          </div>
+          <div class="floating-card one">Drafting • Design • Detailing</div>
+          <div class="floating-card two">Creative • Practical • Precise</div>
+        </div>
+      </div>
     </section>
 
-    <section id="interests">
-        <h2>Interests</h2>
-        <p>Architectural Drawing & Detailing, Model Making</p>
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-label">About Me</p>
+          <h2>Profile</h2>
+          <p>
+            A strong architectural portfolio is not just about visuals. It should show
+            clarity, discipline, detail, and design thinking. That is the direction of
+            this portfolio.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card reveal">
+              <h3>Who I Am</h3>
+            <p>
+              Motivated and detail-oriented Architecture Assistant with a strong
+              foundation in design, drafting, and project documentation. Skilled in
+              preparing drawings, 3D models, and presentation boards with proficiency
+              in AutoCAD, SketchUp, and other design tools.
+            </p>
+          </div>
+
+          <div class="about-card reveal">
+            <h3>What I Bring</h3>
+            <p>
+              I have also completed professional drawing classes from PRECEPT
+              (Gulbai Tekre). I understand building materials and sustainable design
+              principles, and I can support concept development, presentations, and
+              site coordination with strong teamwork and communication.
+            </p>
+          </div>
+
+          <div class="about-card reveal">
+            <h3>Design Approach</h3>
+            <p>
+              My work is driven by aesthetics, usability, structure, and attention to
+              detail. I value clean forms, practical solutions, and presentation quality
+              that communicates ideas clearly.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="languages">
-        <h2>Languages</h2>
-        <p>Gujarati (Native), English (Advanced), Hindi</p>
+    <!-- ACADEMICS -->
+    <section class="section section-alt" id="academics">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-label">Academic Performance</p>
+          <h2>Consistent Growth Through Study and Practice</h2>
+        </div>
+
+        <div class="academic-card reveal">
+          <div class="academic-left">
+            <span class="badge">Recent Achievement</span>
+            <h3>CGPA of 8.5 in 4th Semester</h3>
+            <p>
+              Achieved a CGPA of 8.5 while actively participating in extracurricular
+              activities, reflecting both academic discipline and time management.
+            </p>
+          </div>
+          <div class="academic-right">
+            <div class="circle-score">
+              <span>8.5</span>
+              <small>CGPA</small>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="contact">
-        <h2>Contact Information</h2>
-        <p>Phone: 7698303606</p>
-        <p>Email: aditinanera@gmail.com</p>
-        <p>Location: Satellite, Ahmedabad</p>
+    <!-- EDUCATION -->
+    <section class="section" id="education">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-label">Education</p>
+          <h2>Academic Journey</h2>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-year">2023 – 2026</span>
+              <h3>Diploma in Architecture</h3>
+              <h4>Government Polytechnic for Girls</h4>
+              <p>
+                Focused on drafting, design development, architectural representation,
+                and visual communication across academic projects.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-year">2022 – 2023</span>
+              <h3>Secondary Education</h3>
+              <h4>Kameshwar Vidhyavihar</h4>
+              <p>
+                Built a strong academic base that supported the transition into design
+                and architecture studies.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 Aditi Nanera</p>
-    </footer>
-    <button class="back-to-top">Back to Top</button>
-    <script src="script.js"></script>
+    <!-- SKILLS -->
+    <section class="section section-alt" id="skills">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-label">Skills</p>
+          <h2>Tools & Strengths</h2>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-card reveal">
+            <h3>AutoCAD</h3>
+            <p>Precise drafting, layouts, and technical drawing workflows.</p>
+            <div class="progress-bar">
+              <div class="progress-fill" data-width="90%"></div>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <h3>SketchUp</h3>
+            <p>3D modeling for architectural forms, concepts, and presentation work.</p>
+            <div class="progress-bar">
+              <div class="progress-fill" data-width="85%"></div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal">
+            <h3>Canva</h3>
+            <p>Clean presentation boards, visual layouts, and creative compositions.</p>
+            <div class="progress-bar">
+              <div class="progress-fill" data-width="80%"></div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal">
+            <h3>Project Documentation</h3>
+            <p>Structured design documentation, visual organization, and clarity.</p>
+            <div class="progress-bar">
+              <div class="progress-fill" data-width="82%"></div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal">
+            <h3>Presentation Skills</h3>
+            <p>Communicating concepts clearly through boards and client-facing visuals.</p>
+            <div class="progress-bar">
+              <div class="progress-fill" data-width="78%"></div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal">
+            <h3>Team Collaboration</h3>
+            <p>Supporting senior architects with coordination and design development.</p>
+            <div class="progress-bar">
+              <div class="progress-fill" data-width="84%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERESTS + LANGUAGES -->
+    <section class="section" id="interests">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-label">Personal Highlights</p>
+          <h2>Interests & Languages</h2>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-card reveal">
+            <h3>Interests</h3>
+            <ul>
+              <li>Architectural Drawing & Detailing</li>
+              <li>Model Making</li>
+              <li>Creative Design Presentation</li>
+              <li>Sustainable Design Awareness</li>
+            </ul>
+          </div>
+
+          <div class="info-card reveal">
+            <h3>Languages</h3>
+            <ul>
+              <li>Gujarati — Native</li>
+              <li>English — Advanced</li>
+              <li>Hindi — Proficient</li>
+            </ul>
+          </div>
+
+          <div class="info-card reveal">
+            <h3>What I Value</h3>
+            <ul>
+              <li>Attention to detail</li>
+              <li>Balanced aesthetics</li>
+              <li>Functionality in design</li>
+              <li>Strong teamwork and communication</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section section-alt" id="contact">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-label">Contact</p>
+          <h2>Let’s Connect</h2>
+          <p>
+            I am open to architecture opportunities, design collaborations, and learning
+            experiences that help me grow creatively and professionally.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card reveal">
+            <h3>Contact Information</h3>
+            <div class="contact-item">
+              <span>📞</span>
+              <a href="tel:7698303606">7698303606</a>
+            </div>
+            <div class="contact-item">
+              <span>✉️</span>
+              <a href="mailto:aditinanera@gmail.com">aditinanera@gmail.com</a>
+            </div>
+            <div class="contact-item">
+              <span>📍</span>
+              <p>Satellite, Ahmedabad</p>
+            </div>
+          </div>
+
+          <form class="contact-form reveal" id="contactForm">
+            <h3>Send a Message</h3>
+            <div class="form-group">
+              <input type="text" id="name" placeholder="Your Name" required />
+            </div>
+            <div class="form-group">
+              <input type="email" id="email" placeholder="Your Email" required />
+            </div>
+            <div class="form-group">
+              <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary full-width">Send Message</button>
+            <p id="formMessage" class="form-message"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <h3>Aditi Nanera</h3>
+      <p>Architecture student focused on thoughtful design, detail, and presentation.</p>
+      <p class="copyright">© 2026 Aditi Nanera. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
