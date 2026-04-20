@@ -1,79 +1,136 @@
-// script.js
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+const navItems = document.querySelectorAll(".nav-link");
+const revealElements = document.querySelectorAll(".reveal");
+const backToTop = document.getElementById("backToTop");
+const progressBars = document.querySelectorAll(".progress-fill");
+const contactForm = document.getElementById("contactForm");
+const formMessage = document.getElementById("formMessage");
+const typingText = document.getElementById("typingText");
 
-// Mobile Hamburger Menu Toggle
-const menuToggle = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-
-menuToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
+menuToggle.addEventListener("click", () => {
+  navLinks.classList.toggle("open");
 });
 
-// Smooth Scrolling
-const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
+navItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+  });
+});
 
-smoothScrollLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href');
-        const target = document.querySelector(targetId);
-        target.scrollIntoView({ behavior: 'smooth' });
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+
+        const fills = entry.target.querySelectorAll(".progress-fill");
+        fills.forEach((fill) => {
+          fill.style.width = fill.dataset.width;
+        });
+      }
     });
-});
+  },
+  {
+    threshold: 0.15,
+  }
+);
 
-// Reveal on Scroll Animations
-const revealElements = document.querySelectorAll('.reveal');
+revealElements.forEach((el) => revealObserver.observe(el));
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-            observer.unobserve(entry.target);
-        }
-    });
-});
+const sections = document.querySelectorAll("section[id]");
 
-revealElements.forEach(element => {
-    observer.observe(element);
-});
+function updateActiveLink() {
+  const scrollY = window.pageYOffset;
 
-// Active Nav Link Highlighting on Scroll
-const sections = document.querySelectorAll('section');
-const navLinks = document.querySelectorAll('.nav-menu a');
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop - 130;
+    const sectionHeight = section.offsetHeight;
+    const sectionId = section.getAttribute("id");
 
-const highlightActiveLink = () => {
-    let scrollPos = window.scrollY;
-    sections.forEach((section) => {
-        if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
-            navLinks.forEach((link) => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${section.id}`) {
-                    link.classList.add('active');
-                }
-            });
-        }
-    });
-};
-
-window.addEventListener('scroll', highlightActiveLink);
-
-// Back-to-top Button Functionality
-const backToTopButton = document.querySelector('.back-to-top');
-
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-        backToTopButton.classList.add('active');
-    } else {
-        backToTopButton.classList.remove('active');
+    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+      navItems.forEach((link) => link.classList.remove("active"));
+      const activeLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+      if (activeLink) activeLink.classList.add("active");
     }
+  });
+}
+
+window.addEventListener("scroll", () => {
+  updateActiveLink();
+
+  if (window.scrollY > 300) {
+    backToTop.classList.add("show");
+  } else {
+    backToTop.classList.remove("show");
+  }
 });
 
-backToTopButton.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+backToTop.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 });
 
-// Elegant Transitions
-const transitionElements = document.querySelectorAll('.transition');
+if (contactForm) {
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-transitionElements.forEach(el => {
-    el.style.transition = 'all 0.3s ease-in-out';
-});
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (!name  !email  !message) {
+      formMessage.textContent = "Please fill in all fields.";
+      return;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      formMessage.textContent = "Please enter a valid email address.";
+      return;
+    }
+
+    formMessage.textContent = "Thank you. Your message has been captured successfully.";
+    contactForm.reset();
+  });
+}
+
+const typingPhrases = [
+  "Designing thoughtful spaces with creativity and precision.",
+  "An architecture student focused on detail and visual clarity.",
+  "Turning ideas into structured and meaningful design."
+];
+
+let phraseIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+function typeEffect() {
+  if (!typingText) return;
+
+  const currentPhrase = typingPhrases[phraseIndex];
+  const currentText = currentPhrase.substring(0, charIndex);
+  typingText.textContent = currentText;
+
+  if (!isDeleting && charIndex < currentPhrase.length) {
+    charIndex++;
+    setTimeout(typeEffect, 55);
+  } else if (isDeleting && charIndex > 0) {
+    charIndex--;
+    setTimeout(typeEffect, 30);
+  } else {
+    if (!isDeleting) {
+      isDeleting = true;
+      setTimeout(typeEffect, 1400);
+    } else {
+      isDeleting = false;
+      phraseIndex = (phraseIndex + 1) % typingPhrases.length;
+      setTimeout(typeEffect, 250);
+    }
+  }
+}
+
+typeEffect();
+updateActiveLink();
