@@ -1,19 +1,46 @@
 const menuToggle = document.getElementById("menuToggle");
 const navLinks = document.getElementById("navLinks");
 const navItems = document.querySelectorAll(".nav-link");
+const headerLinks = document.querySelectorAll('.header a[href^="#"]');
 const revealElements = document.querySelectorAll(".reveal");
 const backToTop = document.getElementById("backToTop");
 const progressBars = document.querySelectorAll(".progress-fill");
 const contactForm = document.getElementById("contactForm");
 const formMessage = document.getElementById("formMessage");
 const typingText = document.getElementById("typingText");
+const currentYear = document.getElementById("currentYear");
+const header = document.querySelector(".header");
+const sections = [...document.querySelectorAll("section[id]")];
+
+if (currentYear) {
+  currentYear.textContent = new Date().getFullYear();
+}
 
 menuToggle.addEventListener("click", () => {
   navLinks.classList.toggle("open");
 });
 
-navItems.forEach((item) => {
-  item.addEventListener("click", () => {
+headerLinks.forEach((item) => {
+  item.addEventListener("click", (event) => {
+    const targetId = item.getAttribute("href");
+    const targetSection = document.querySelector(targetId);
+
+    if (targetSection) {
+      event.preventDefault();
+
+      const headerHeight = header ? header.offsetHeight : 0;
+      const targetTop =
+        targetSection.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+      window.scrollTo({
+        top: targetTop,
+        behavior: "smooth",
+      });
+
+      setActiveLink(targetId.replace("#", ""));
+      window.history.pushState(null, "", targetId);
+    }
+
     navLinks.classList.remove("open");
   });
 });
@@ -28,43 +55,85 @@ const revealObserver = new IntersectionObserver(
         fills.forEach((fill) => {
           fill.style.width = fill.dataset.width;
         });
+
+        revealObserver.unobserve(entry.target);
       }
     });
   },
   {
-    threshold: 0.15,
-  }
+    threshold: 0.12,
+    rootMargin: "0px 0px -60px",
+  },
 );
 
 revealElements.forEach((el) => revealObserver.observe(el));
 
-const sections = document.querySelectorAll("section[id]");
+let sectionPositions = [];
+let activeSectionId = "home";
+let isBackToTopVisible = false;
+let scrollTicking = false;
+let resizeTimer;
 
-function updateActiveLink() {
-  const scrollY = window.pageYOffset;
+function refreshSectionPositions() {
+  sectionPositions = sections.map((section) => ({
+    id: section.getAttribute("id"),
+    top: section.offsetTop - 140,
+    bottom: section.offsetTop + section.offsetHeight - 140,
+  }));
 
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop - 130;
-    const sectionHeight = section.offsetHeight;
-    const sectionId = section.getAttribute("id");
+  updateScrollState();
+}
 
-    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-      navItems.forEach((link) => link.classList.remove("active"));
-      const activeLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-      if (activeLink) activeLink.classList.add("active");
-    }
+function setActiveLink(sectionId) {
+  if (sectionId === activeSectionId) return;
+
+  activeSectionId = sectionId;
+  navItems.forEach((link) => {
+    link.classList.toggle(
+      "active",
+      link.getAttribute("href") === `#${sectionId}`,
+    );
   });
 }
 
-window.addEventListener("scroll", () => {
-  updateActiveLink();
+function updateScrollState() {
+  const scrollY = window.scrollY;
+  let currentSectionId = "home";
 
-  if (window.scrollY > 300) {
-    backToTop.classList.add("show");
-  } else {
-    backToTop.classList.remove("show");
+  sectionPositions.forEach((section) => {
+    if (scrollY >= section.top && scrollY < section.bottom) {
+      currentSectionId = section.id;
+    }
+  });
+
+  setActiveLink(currentSectionId);
+
+  const shouldShowBackToTop = scrollY > 300;
+  if (shouldShowBackToTop !== isBackToTopVisible) {
+    isBackToTopVisible = shouldShowBackToTop;
+    backToTop.classList.toggle("show", shouldShowBackToTop);
   }
-});
+
+  scrollTicking = false;
+}
+
+function requestScrollUpdate() {
+  if (scrollTicking) return;
+
+  scrollTicking = true;
+  requestAnimationFrame(updateScrollState);
+}
+
+window.addEventListener("scroll", requestScrollUpdate, { passive: true });
+window.addEventListener(
+  "resize",
+  () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(refreshSectionPositions, 120);
+  },
+  { passive: true },
+);
+window.addEventListener("load", refreshSectionPositions);
 
 backToTop.addEventListener("click", () => {
   window.scrollTo({
@@ -81,7 +150,7 @@ if (contactForm) {
     const email = document.getElementById("email").value.trim();
     const message = document.getElementById("message").value.trim();
 
-    if (!name  !email  !message) {
+    if (!name || !email || !message) {
       formMessage.textContent = "Please fill in all fields.";
       return;
     }
@@ -92,7 +161,8 @@ if (contactForm) {
       return;
     }
 
-    formMessage.textContent = "Thank you. Your message has been captured successfully.";
+    formMessage.textContent =
+      "Thank you. Your message has been captured successfully.";
     contactForm.reset();
   });
 }
@@ -100,7 +170,7 @@ if (contactForm) {
 const typingPhrases = [
   "Designing thoughtful spaces with creativity and precision.",
   "An architecture student focused on detail and visual clarity.",
-  "Turning ideas into structured and meaningful design."
+  "Turning ideas into structured and meaningful design.",
 ];
 
 let phraseIndex = 0;
@@ -133,4 +203,4 @@ function typeEffect() {
 }
 
 typeEffect();
-updateActiveLink();
+refreshSectionPositions();
